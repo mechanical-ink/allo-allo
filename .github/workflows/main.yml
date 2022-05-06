@@ -1,0 +1,14 @@
+on: [push]
+
+jobs:
+  allo_allo_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - name: Allo Allo action step
+        id: alloAllo
+        uses: schalkneethling/allo-allo/allo-allo-action@v0.1
+        with:
+          who-to-greet: "Mona the Octocat"
+      - name: Get the output payload
+        run: echo "${{ steps.alloAllo.outputs.newIssueComment }}"
