@@ -1,13 +1,14 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Allo Allo"
+author: "Schalk Neethling"
+description: "A welcome bot GitHub action for your project"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  issueGreeting: # id of input
+    description: "The greeting to display to the new contributor"
     required: true
-    default: '1000'
+    default: "Welcome to the project! Thank you for your interest!"
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  newIssueComment: # output will be available to future steps
+    description: "The issue comment"
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
