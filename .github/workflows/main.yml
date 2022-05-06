@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
+      - uses: actions/checkout@v3
       - name: Allo Allo action step
         id: alloAllo
         uses: schalkneethling/allo-allo/allo-allo-action@v0.1
