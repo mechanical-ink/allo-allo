@@ -11,8 +11,4 @@ jobs:
           node-version: "16"
           registry-url: "https://registry.npmjs.org"
       - run: npm install
-      - name: Allo Allo action step
-        id: alloAllo
-        uses: schalkneethling/allo-allo/allo-allo-action@main
-      - name: Get the output payload
-        run: echo "${{ steps.alloAllo.outputs.newIssueComment }}"
+      - uses: schalkneethling/allo-allo/allo-allo-action@main
