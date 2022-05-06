@@ -8,6 +8,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Allo Allo action step
         id: alloAllo
-        uses: schalkneethling/allo-allo/allo-allo-action@v0.3
+        uses: schalkneethling/allo-allo/allo-allo-action@main
       - name: Get the output payload
         run: echo "${{ steps.alloAllo.outputs.newIssueComment }}"
