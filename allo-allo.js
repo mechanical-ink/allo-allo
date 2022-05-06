@@ -1,7 +1,7 @@
 const github = require("@actions/github");
 // const core = require("@actions/core");
 
-async function run() {
+async function alloAllo() {
   // const token = core.getInput("GH_TOKEN");
   // const octokit = new github.getOctokit(token);
   // const issueComment = core.getInput("issueGreeting");
@@ -10,4 +10,4 @@ async function run() {
   return payload;
 }
 
-run();
+module.exports = alloAllo;
