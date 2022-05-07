@@ -1,5 +1,5 @@
 const github = require("@actions/github");
-// const core = require("@actions/core");
+const core = require("@actions/core");
 
 async function alloAllo() {
   const token = core.getInput("GH_TOKEN");

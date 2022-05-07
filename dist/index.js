@@ -5,7 +5,7 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(5438);
-// const core = require("@actions/core");
+const core = __nccwpck_require__(2186);
 
 async function alloAllo() {
   const token = core.getInput("GH_TOKEN");
