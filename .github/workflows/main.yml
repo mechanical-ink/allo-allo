@@ -15,4 +15,4 @@ jobs:
       - name: Install
         run: npm install
       - name: AlloAllo
-        uses: schalkneethling/allo-allo/allo-allo-action@main
+        uses: schalkneethling/allo-allo@main
