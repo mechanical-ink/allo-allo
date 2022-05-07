@@ -7,7 +7,7 @@ inputs:
     required: false
     default: "Welcome to the project! Thank you for your interest!"
   GH_TOKEN:
-    description: "The default GITHUB_TOKEN exposed to GitHub Actions"
+    description: "A personal access token to use with this GitHub Action"
     required: true
 outputs:
   newIssueComment: # output will be available to future steps
