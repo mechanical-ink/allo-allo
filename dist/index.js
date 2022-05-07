@@ -2,12 +2,12 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 9490:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const github = __nccwpck_require__(5438);
 // const core = require("@actions/core");
 
-async function run() {
+async function alloAllo() {
   // const token = core.getInput("GH_TOKEN");
   // const octokit = new github.getOctokit(token);
   // const issueComment = core.getInput("issueGreeting");
@@ -16,7 +16,7 @@ async function run() {
   return payload;
 }
 
-run();
+module.exports = alloAllo;
 
 
 /***/ }),
