@@ -9,12 +9,17 @@ async function alloAllo() {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = github.context.payload;
 
-  const response = octokit.rest.issues.createComment({
-    owner: payload.repository.owner.login,
-    repo: payload.repository.html_url,
-    issue_number: payload.issue.number,
-    body: issueComment,
-  });
+  try {
+    const response = await octokit.rest.issues.createComment({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.html_url,
+      issue_number: payload.issue.number,
+      body: issueComment,
+    });
+  } catch (error) {
+    console.log(`Error while creating comment: ${error}`);
+    core.setFailed(error.message);
+  }
 
   return response;
 }
