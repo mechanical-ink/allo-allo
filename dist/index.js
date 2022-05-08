@@ -16,6 +16,8 @@ async function alloAllo() {
   const payload = github.context.payload;
   let response = null;
 
+  console.log("payload", payload);
+
   try {
     response = await octokit.rest.issues.createComment({
       owner: payload.repository.owner.login,
