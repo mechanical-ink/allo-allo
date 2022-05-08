@@ -16,7 +16,14 @@ async function alloAllo() {
   const payload = github.context.payload;
   let response = null;
 
-  console.log("payload", payload);
+  console.log(
+    "payload",
+    await octokit.rest.getContextForUser({
+      username: payload.issue.user.login,
+      subject_type: "repository",
+      subject_id: "repository",
+    })
+  );
 
   try {
     response = await octokit.rest.issues.createComment({
