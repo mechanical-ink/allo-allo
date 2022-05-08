@@ -12,7 +12,7 @@ async function alloAllo() {
 
   console.log(
     "payload",
-    await octokit.rest.getContextForUser({
+    await octokit.rest.users.getContextForUser({
       username: payload.issue.user.login,
       subject_type: "repository",
       subject_id: "repository",
