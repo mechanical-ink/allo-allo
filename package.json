@@ -1,6 +1,6 @@
 {
-  "name": "allo-allo-action",
-  "version": "1.0.0",
+  "name": "allo-allo",
+  "version": "0.8",
   "description": "JavaScript Action Template",
   "main": "index.js",
   "scripts": {
