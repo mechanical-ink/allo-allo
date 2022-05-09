@@ -1,14 +1,22 @@
-on: [push]
+on:
+  issues:
+    types: [opened]
 
 jobs:
-  allo_allo_job:
+  AlloAllo:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
-      - name: Allo Allo action step
-        id: alloAllo
-        uses: schalkneethling/allo-allo/allo-allo-action@v0.1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: SetupNode
+        uses: actions/setup-node@v3
         with:
-          who-to-greet: "Mona the Octocat"
-      - name: Get the output payload
-        run: echo "${{ steps.alloAllo.outputs.newIssueComment }}"
+          node-version: "16"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install
+        run: npm install
+      - name: AlloAllo
+        uses: schalkneethling/allo-allo@main
+        with:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

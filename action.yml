@@ -4,8 +4,11 @@ description: "A welcome bot GitHub action for your project"
 inputs:
   issueGreeting: # id of input
     description: "The greeting to display to the new contributor"
-    required: true
+    required: false
     default: "Welcome to the project! Thank you for your interest!"
+  GH_TOKEN:
+    description: "A personal access token to use with this GitHub Action"
+    required: true
 outputs:
   newIssueComment: # output will be available to future steps
     description: "The issue comment"
