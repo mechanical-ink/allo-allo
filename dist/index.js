@@ -23,7 +23,8 @@ async function alloAllo() {
       subject_type: "repository",
       subject_id: repoID,
     });
-    console.log("userResponse", userResponse);
+    console.log("userResponse", userResponse.data.contexts[0]);
+    console.log("userResponse", userResponse.data.contexts[1]);
   }
 
   try {
