@@ -1,4 +1,6 @@
-on: [push]
+on:
+  issues:
+    types: [opened]
 
 jobs:
   AlloAllo:
@@ -15,4 +17,6 @@ jobs:
       - name: Install
         run: npm install
       - name: AlloAllo
-        uses: schalkneethling/allo-allo/allo-allo-action@main
+        uses: schalkneethling/allo-allo@main
+        with:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -5,6 +5,7 @@ const alloAllo = require("./allo-allo");
 async function run() {
   try {
     const newIssueComment = await alloAllo();
+    console.log("newIssueComment", newIssueComment);
     core.setOutput("newIssueComment", newIssueComment);
   } catch (error) {
     core.setFailed(error.message);
