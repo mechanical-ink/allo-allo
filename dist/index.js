@@ -12,19 +12,25 @@ async function alloAllo() {
   const octokit = new github.getOctokit(token);
   const issueComment = core.getInput("issueGreeting");
 
-  // Get the JSON webhook payload for the event that triggered the workflow
   const payload = github.context.payload;
   const repoID = payload.repository.id;
   let response = null;
 
   if (repoID) {
-    const userResponse = await octokit.rest.users.getContextForUser({
+    const userInfoRepoCtx = await octokit.rest.users.getContextForUser({
       username: payload.issue.user.login,
       subject_type: "repository",
       subject_id: repoID,
     });
-    console.log("userResponse", userResponse.data.contexts[0]);
-    console.log("userResponse", userResponse.data.contexts[1]);
+
+    const userInfoIssueCtx = await octokit.rest.users.getContextForUser({
+      username: payload.issue.user.login,
+      subject_type: "repository",
+      subject_id: repoID,
+    });
+
+    console.log("userInfoRepoCtx", JSON.stringify(userInfoRepoCtx, null, 2));
+    console.log("userInfoIssueCtx", JSON.stringify(userInfoIssueCtx, null, 2));
   }
 
   try {
