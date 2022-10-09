@@ -36,9 +36,14 @@ async function alloAllo() {
     //   subject_id: repoID,
     // });
 
-    // const response = await octokit.rest.search.issuesAndPullRequests({
-    //   q: `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`,
-    // });
+    const query =
+      "q=" +
+      encodeURIComponent(
+        `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`
+      );
+    const response = await octokit.rest.search.issuesAndPullRequests({
+      query,
+    });
 
     console.log("payload.repository.name", payload.repository.name);
     console.log(
@@ -46,7 +51,7 @@ async function alloAllo() {
       payload.repository.owner.login
     );
     console.log("payload.issue.user.login", payload.issue.user.login);
-    // console.log("response", JSON.stringify(response, null, 2));
+    console.log("response", JSON.stringify(response, null, 2));
   }
 
   try {
