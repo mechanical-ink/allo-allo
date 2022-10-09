@@ -30,10 +30,10 @@ async function alloAllo() {
     //   subject_id: repoID,
     // });
 
-    const response = await octokit.rest.search.issuesAndPullRequests({
-      q: encodeURIComponent(
-        `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`
-      ),
+    const response = await octokit.rest.issues.listForRepo({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      creator: payload.issue.user.login,
     });
 
     console.log("payload.repository.name", payload.repository.name);
