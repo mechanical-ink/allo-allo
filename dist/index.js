@@ -36,13 +36,10 @@ async function alloAllo() {
     //   subject_id: repoID,
     // });
 
-    const query =
-      "q=" +
-      encodeURIComponent(
-        `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`
-      );
     const response = await octokit.rest.search.issuesAndPullRequests({
-      query,
+      q: encodeURIComponent(
+        `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`
+      ),
     });
 
     console.log("payload.repository.name", payload.repository.name);
