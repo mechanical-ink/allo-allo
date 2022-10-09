@@ -19,12 +19,19 @@ async function alloAllo() {
 
     const userInfoIssueCtx = await octokit.rest.users.getContextForUser({
       username: payload.issue.user.login,
-      subject_type: "repository",
+      subject_type: "issue",
+      subject_id: repoID,
+    });
+
+    const userInfoPRCtx = await octokit.rest.users.getContextForUser({
+      username: payload.issue.user.login,
+      subject_type: "pull_request",
       subject_id: repoID,
     });
 
     console.log("userInfoRepoCtx", JSON.stringify(userInfoRepoCtx, null, 2));
     console.log("userInfoIssueCtx", JSON.stringify(userInfoIssueCtx, null, 2));
+    console.log("userInfoPRCtx", JSON.stringify(userInfoPRCtx, null, 2));
   }
 
   try {
