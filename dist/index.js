@@ -16,28 +16,37 @@ async function alloAllo() {
   const repoID = payload.repository.id;
   let response = null;
 
+  // author:USERNAME
   if (repoID) {
-    const userInfoRepoCtx = await octokit.rest.users.getContextForUser({
-      username: payload.issue.user.login,
-      subject_type: "repository",
-      subject_id: repoID,
+    // const userInfoRepoCtx = await octokit.rest.users.getContextForUser({
+    //   username: payload.issue.user.login,
+    //   subject_type: "repository",
+    //   subject_id: repoID,
+    // });
+
+    // const userInfoIssueCtx = await octokit.rest.users.getContextForUser({
+    //   username: payload.issue.user.login,
+    //   subject_type: "issue",
+    //   subject_id: repoID,
+    // });
+
+    // const userInfoPRCtx = await octokit.rest.users.getContextForUser({
+    //   username: payload.issue.user.login,
+    //   subject_type: "pull_request",
+    //   subject_id: repoID,
+    // });
+
+    const response = await octokit.rest.search.issuesAndPullRequests({
+      q: `repo:${payload.repository.name}/${payload.repository.owner.login} author:${payload.issue.user.login}`,
     });
 
-    const userInfoIssueCtx = await octokit.rest.users.getContextForUser({
-      username: payload.issue.user.login,
-      subject_type: "issue",
-      subject_id: repoID,
-    });
-
-    const userInfoPRCtx = await octokit.rest.users.getContextForUser({
-      username: payload.issue.user.login,
-      subject_type: "pull_request",
-      subject_id: repoID,
-    });
-
-    console.log("userInfoRepoCtx", JSON.stringify(userInfoRepoCtx, null, 2));
-    console.log("userInfoIssueCtx", JSON.stringify(userInfoIssueCtx, null, 2));
-    console.log("userInfoPRCtx", JSON.stringify(userInfoPRCtx, null, 2));
+    console.log("payload.repository.name", payload.repository.name);
+    console.log(
+      "payload.repository.owner.login",
+      payload.repository.owner.login
+    );
+    console.log("payload.issue.user.login", payload.issue.user.login);
+    console.log("response", JSON.stringify(response, null, 2));
   }
 
   try {
