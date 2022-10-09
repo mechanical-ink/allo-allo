@@ -16,39 +16,22 @@ async function alloAllo() {
   const repoID = payload.repository.id;
   let response = null;
 
-  // author:USERNAME
   if (repoID) {
-    // const userInfoRepoCtx = await octokit.rest.users.getContextForUser({
-    //   username: payload.issue.user.login,
-    //   subject_type: "repository",
-    //   subject_id: repoID,
-    // });
-
-    // const userInfoIssueCtx = await octokit.rest.users.getContextForUser({
-    //   username: payload.issue.user.login,
-    //   subject_type: "issue",
-    //   subject_id: repoID,
-    // });
-
-    // const userInfoPRCtx = await octokit.rest.users.getContextForUser({
-    //   username: payload.issue.user.login,
-    //   subject_type: "pull_request",
-    //   subject_id: repoID,
-    // });
-
-    const response = await octokit.rest.issues.listForRepo({
+    const { status, data: issues } = await octokit.rest.issues.listForRepo({
       owner: payload.repository.owner.login,
       repo: payload.repository.name,
       creator: payload.issue.user.login,
     });
 
-    console.log("payload.repository.name", payload.repository.name);
-    console.log(
-      "payload.repository.owner.login",
-      payload.repository.owner.login
-    );
-    console.log("payload.issue.user.login", payload.issue.user.login);
-    console.log("response", JSON.stringify(response, null, 2));
+    if (status !== 200) {
+      throw new Error(`Received unexpected API status code ${status}`);
+    }
+
+    const issueList = issues.filter((issue) => !issue.pull_request);
+    const pullRequestList = issues.filter((issue) => issue.pull_request);
+
+    console.log("issueList", issueList);
+    console.log("pullRequestList", pullRequestList);
   }
 
   try {
