@@ -2,7 +2,7 @@ const github = require("@actions/github");
 const core = require("@actions/core");
 
 async function alloAllo() {
-  const token = core.getInput("GH_TOKEN");
+  const token = core.getInput("token");
   const octokit = new github.getOctokit(token);
   const issueComment = core.getInput("issueGreeting");
 
