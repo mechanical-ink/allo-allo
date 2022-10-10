@@ -11,6 +11,7 @@ async function alloAllo() {
   const token = core.getInput("token");
   const octokit = new github.getOctokit(token);
   const issueComment = core.getInput("issueGreeting");
+  const prComment = core.getInput("prGreeting");
 
   const payload = github.context.payload;
 
@@ -45,27 +46,57 @@ async function alloAllo() {
     return;
   }
 
+  let response = null;
+
+  console.log("pullRequestList", pullRequestList);
+
   // if this is a pull request, and the pull request list contains one entry
   // check whether the currentActionId is the same as the pull request id
   // if it is not, createReview with the pull request message if defined
+  if (
+    isPullRequest &&
+    pullRequestList.length === 1 &&
+    pullRequestList[0].number !== currentActionId &&
+    prComment
+  ) {
+    try {
+      response = await octokit.rest.pulls.createReview({
+        owner: payload.repository.owner.login,
+        repo: payload.repository.name,
+        pull_number: currentActionId,
+        body: prComment,
+        event: "COMMENT",
+      });
+    } catch (error) {
+      console.error(
+        `Error while creating pull request comment: ${error.message}`
+      );
+      core.setFailed(error.message);
+    }
+  }
+
   console.log("issueList", issueList);
 
   // if this is not a pull request, and the issue list contains one entry
   // check whether the currentActionId is the same as the issue id
   // if it is not, createComment with the issue message if defined
-  console.log("pullRequestList", pullRequestList);
-
-  let response = null;
-  try {
-    response = await octokit.rest.issues.createComment({
-      owner: payload.repository.owner.login,
-      repo: payload.repository.name,
-      issue_number: payload.issue.number,
-      body: issueComment,
-    });
-  } catch (error) {
-    console.log(`Error while creating comment: ${error}`);
-    core.setFailed(error.message);
+  if (
+    !isPullRequest &&
+    issueList.length === 1 &&
+    issueList[0].number !== currentActionId &&
+    issueComment
+  ) {
+    try {
+      response = await octokit.rest.issues.createComment({
+        owner: payload.repository.owner.login,
+        repo: payload.repository.name,
+        issue_number: currentActionId,
+        body: issueComment,
+      });
+    } catch (error) {
+      console.log(`Error while creating comment: ${error}`);
+      core.setFailed(error.message);
+    }
   }
 
   return response;
