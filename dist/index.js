@@ -20,6 +20,8 @@ async function alloAllo() {
     return;
   }
 
+  console.log(payload);
+
   // The username of the user that created the issue or pull request
   const creator = payload.pull_request.user.login || payload.issue.user.login;
   // The id of the current issue or pull request
