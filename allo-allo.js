@@ -10,9 +10,7 @@ async function alloAllo() {
   const repoID = payload.repository.id;
   let response = null;
 
-  console.log("payload.repository", payload.repository);
-  console.log("payload.issue", payload.issue);
-  console.log("payload.pull_request", payload.pull_request);
+  console.log("payload", payload);
 
   const creator = payload.pull_request.user.login || payload.issue.user.login;
 
