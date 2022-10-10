@@ -16,6 +16,9 @@ async function alloAllo() {
   const repoID = payload.repository.id;
   let response = null;
 
+  console.log("payload.repository", payload.repository);
+  console.log("payload.issue", payload.issue);
+
   if (repoID) {
     const { status, data: issues } = await octokit.rest.issues.listForRepo({
       owner: payload.repository.owner.login,
