@@ -7,31 +7,49 @@ async function alloAllo() {
   const issueComment = core.getInput("issueGreeting");
 
   const payload = github.context.payload;
-  const repoID = payload.repository.id;
-  let response = null;
 
-  console.log("payload", payload);
-
-  const creator = payload.pull_request.user.login || payload.issue.user.login;
-
-  if (repoID) {
-    const { status, data: issues } = await octokit.rest.issues.listForRepo({
-      owner: payload.repository.owner.login,
-      repo: payload.repository.name,
-      creator: creator,
-    });
-
-    if (status !== 200) {
-      throw new Error(`Received unexpected API status code ${status}`);
-    }
-
-    const issueList = issues.filter((issue) => !issue.pull_request);
-    const pullRequestList = issues.filter((issue) => issue.pull_request);
-
-    console.log("issueList", issueList);
-    console.log("pullRequestList", pullRequestList);
+  // if the action was not one of 'opened', take no action
+  if (payload.action !== "opened") {
+    return;
   }
 
+  // The username of the user that created the issue or pull request
+  const creator = payload.pull_request.user.login || payload.issue.user.login;
+  // The id of the current issue or pull request
+  const currentActionId = payload.number;
+  const isPullRequest = payload.pull_request ? true : false;
+
+  // Get all issues for the current user.
+  // Issues include both issues and pull requests
+  const { status, data: issues } = await octokit.rest.issues.listForRepo({
+    owner: payload.repository.owner.login,
+    repo: payload.repository.name,
+    creator: creator,
+  });
+
+  if (status !== 200) {
+    throw new Error(`Received unexpected API status code ${status}`);
+  }
+
+  const issueList = issues.filter((issue) => !issue.pull_request);
+  const pullRequestList = issues.filter((issue) => issue.pull_request);
+
+  // if the user has more than one issue and pull request, take no action
+  if (issueList.length > 1 && pullRequestList.length > 1) {
+    return;
+  }
+
+  // if this is a pull request, and the pull request list contains one entry
+  // check whether the currentActionId is the same as the pull request id
+  // if it is not, createReview with the pull request message if defined
+  console.log("issueList", issueList);
+
+  // if this is not a pull request, and the issue list contains one entry
+  // check whether the currentActionId is the same as the issue id
+  // if it is not, createComment with the issue message if defined
+  console.log("pullRequestList", pullRequestList);
+
+  let response = null;
   try {
     response = await octokit.rest.issues.createComment({
       owner: payload.repository.owner.login,
