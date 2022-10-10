@@ -23,7 +23,7 @@ async function alloAllo() {
   // The username of the user that created the issue or pull request
   const creator = payload.pull_request?.user.login || payload.issue?.user.login;
   // The id of the current issue or pull request
-  const currentActionId = payload.number;
+  const currentActionId = payload.number || payload.issue?.number;
   const isPullRequest = payload.pull_request ? true : false;
 
   // Get all issues for the current user.
