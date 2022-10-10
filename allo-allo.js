@@ -14,11 +14,13 @@ async function alloAllo() {
   console.log("payload.issue", payload.issue);
   console.log("payload.pull_request", payload.pull_request);
 
+  const creator = payload.pull_request.user.login || payload.issue.user.login;
+
   if (repoID) {
     const { status, data: issues } = await octokit.rest.issues.listForRepo({
       owner: payload.repository.owner.login,
       repo: payload.repository.name,
-      creator: payload.issue.user.login,
+      creator: creator,
     });
 
     if (status !== 200) {
