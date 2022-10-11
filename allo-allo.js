@@ -4,8 +4,8 @@ const core = require("@actions/core");
 async function alloAllo() {
   const token = core.getInput("token");
   const octokit = new github.getOctokit(token);
-  const issueComment = core.getInput("issueGreeting");
-  const prComment = core.getInput("prGreeting");
+  const issueComment = core.getInput("issueWelcome");
+  const prComment = core.getInput("prWelcome");
 
   const payload = github.context.payload;
 
@@ -46,11 +46,11 @@ async function alloAllo() {
 
   // if this is a pull request, and the pull request list contains one entry
   // check whether the currentActionId is the same as the pull request id
-  // if it is not, createReview with the pull request message if defined
+  // if it is, createReview with the pull request message if defined
   if (
     isPullRequest &&
     pullRequestList.length === 1 &&
-    pullRequestList[0].number !== currentActionId &&
+    pullRequestList[0].number === currentActionId &&
     prComment
   ) {
     try {
@@ -73,11 +73,11 @@ async function alloAllo() {
 
   // if this is not a pull request, and the issue list contains one entry
   // check whether the currentActionId is the same as the issue id
-  // if it is not, createComment with the issue message if defined
+  // if it is, createComment with the issue message if defined
   if (
     !isPullRequest &&
     issueList.length === 1 &&
-    issueList[0].number !== currentActionId &&
+    issueList[0].number === currentActionId &&
     issueComment
   ) {
     try {
