@@ -95,8 +95,8 @@ async function alloAllo() {
         body: issueComment,
       });
     } catch (error) {
-      console.log(`Error while creating comment: ${error}`);
-      core.setFailed(error.message);
+      console.log(error);
+      core.setFailed(`Error while creating comment: ${error.message}`);
     }
   }
 
