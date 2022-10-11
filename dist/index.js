@@ -8580,9 +8580,7 @@ const alloAllo = __nccwpck_require__(9490);
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const newIssueComment = await alloAllo();
-    console.log("newIssueComment", newIssueComment);
-    core.setOutput("newIssueComment", newIssueComment);
+    alloAllo();
   } catch (error) {
     core.setFailed(error.message);
   }
