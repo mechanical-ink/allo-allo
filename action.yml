@@ -13,9 +13,6 @@ inputs:
   token:
     description: "Token for the repository. The default GITHUB_TOKEN can be used."
     required: true
-outputs:
-  newIssueComment: # output will be available to future steps
-    description: "The issue comment"
 runs:
   using: "node16"
   main: "dist/index.js"

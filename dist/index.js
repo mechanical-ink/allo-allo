@@ -50,6 +50,7 @@ async function alloAllo() {
 
   console.log("currentActionId", currentActionId);
   console.log("pullRequestList", pullRequestList);
+  console.log("issueList", issueList);
 
   // if this is a pull request, and the pull request list contains one entry
   // check whether the currentActionId is the same as the pull request id
@@ -69,14 +70,12 @@ async function alloAllo() {
         event: "COMMENT",
       });
     } catch (error) {
-      console.error(
+      console.error(error);
+      core.setFailed(
         `Error while creating pull request comment: ${error.message}`
       );
-      core.setFailed(error.message);
     }
   }
-
-  console.log("issueList", issueList);
 
   // if this is not a pull request, and the issue list contains one entry
   // check whether the currentActionId is the same as the issue id
