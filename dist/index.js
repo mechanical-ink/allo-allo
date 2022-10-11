@@ -48,7 +48,7 @@ async function alloAllo() {
 
   let response = null;
 
-  console.log("currentActionId", currentActionId);
+  console.log("currentActionId", currentActionId, typeof currentActionId);
   console.log("pullRequestList", pullRequestList);
   console.log("issueList", issueList);
 
