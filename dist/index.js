@@ -48,6 +48,7 @@ async function alloAllo() {
 
   let response = null;
 
+  console.log("currentActionId", currentActionId);
   console.log("pullRequestList", pullRequestList);
 
   // if this is a pull request, and the pull request list contains one entry
