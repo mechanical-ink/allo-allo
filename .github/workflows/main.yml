@@ -27,4 +27,4 @@ jobs:
       - name: AlloAllo
         uses: schalkneethling/allo-allo@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
