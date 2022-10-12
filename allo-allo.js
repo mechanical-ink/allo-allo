@@ -56,10 +56,10 @@ async function alloAllo() {
     prComment
   ) {
     try {
-      response = await octokit.rest.pulls.createComment({
+      response = await octokit.rest.issues.createComment({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
-        pull_number: currentActionId,
+        issue_number: currentActionId,
         body: prComment,
       });
     } catch (error) {
