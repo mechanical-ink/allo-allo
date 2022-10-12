@@ -1,13 +1,14 @@
+name: "AlloAllo"
+
 on:
   issues:
-    types: [opened]
+    types:
+      - opened
   pull_request_target:
-    branches: [main]
-    types: [opened]
-
-permissions:
-  issues: write
-  pull-requests: write
+    branches:
+      - main
+    types:
+      - opened
 
 jobs:
   AlloAllo:
@@ -27,4 +28,4 @@ jobs:
       - name: AlloAllo
         uses: schalkneethling/allo-allo@main
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
