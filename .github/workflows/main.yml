@@ -5,14 +5,14 @@ on:
     branches: [main]
     types: [opened]
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   AlloAllo:
     name: A job to say hello
     runs-on: ubuntu-latest
-
-    permissions:
-      issues: write
-      pull-requests: write
 
     steps:
       - name: Checkout
