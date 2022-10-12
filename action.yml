@@ -2,16 +2,17 @@ name: "Allo Allo"
 author: "Schalk Neethling"
 description: "A welcome bot GitHub action for your project"
 inputs:
-  issueGreeting: # id of input
-    description: "The greeting to display to the new contributor"
+  issueWelcome: # id of input
+    description: "The greeting to display to the new contributor on issues."
     required: false
     default: "Welcome to the project! Thank you for your interest!"
-  GH_TOKEN:
-    description: "A personal access token to use with this GitHub Action"
+  prWelcome: # id of input
+    description: "The greeting to display to the new contributor on pull requests."
+    required: false
+    default: "Welcome to the project! Thank you for your contribution!"
+  token:
+    description: "Token for the repository. The default GITHUB_TOKEN can be used."
     required: true
-outputs:
-  newIssueComment: # output will be available to future steps
-    description: "The issue comment"
 runs:
   using: "node16"
   main: "dist/index.js"
