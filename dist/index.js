@@ -20,8 +20,15 @@ async function alloAllo() {
     return;
   }
 
+  const repositoryOwner = payload.repository.owner.login;
   // The username of the user that created the issue or pull request
   const creator = payload.pull_request?.user.login || payload.issue?.user.login;
+
+  // no need to welcome the repository owner
+  if (creator === repositoryOwner) {
+    return;
+  }
+
   // The id of the current issue or pull request
   const currentActionId = payload.number || payload.issue?.number;
   const isPullRequest = payload.pull_request ? true : false;
