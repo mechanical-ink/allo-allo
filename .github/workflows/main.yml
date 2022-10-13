@@ -37,10 +37,10 @@ jobs:
             It looks like this is your first issue. Welcome! 👋
             One of the project maintainers will be with you as soon as possible.
             We appreciate your patience. To ensure the health of the project, please
-            take a moment to read our [code of conduct](CODE_OF_CONDUCT.md).
+            take a moment to read our [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
           prWelcome: |
             It looks like this is your first pull request. 🎉 Thank you for your contribution!
             One of the project maintainers will triage and assign the pull request for review
             as soon as possible. We appreciate your patience. To ensure the health of the project,
-            please take a moment to read our [code of conduct](CODE_OF_CONDUCT.md).
+            please take a moment to read our [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
           token: ${{ secrets.GITHUB_TOKEN }}
