@@ -10,9 +10,14 @@ on:
     types:
       - opened
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   AlloAllo:
-    name: A job to say hello
+    name: Welcome new contributors
     runs-on: ubuntu-latest
 
     steps:
