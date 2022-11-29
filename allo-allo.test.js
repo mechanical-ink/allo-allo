@@ -73,4 +73,27 @@ describe("Allo Allo GitHub Action", () => {
 
     await expect(response).toBe(undefined);
   });
+
+  test("if the user opening the pull requst is a bot, the action should do nothing", async () => {
+    github.context.payload = {
+      action: "opened",
+      pull_request: {
+        title: "Bump prettier from 2.7.1 to 2.8.0",
+        user: {
+          login: "dependabot[bot]",
+          type: "Bot",
+          site_admin: false,
+        },
+      },
+      repository: {
+        owner: {
+          login: "schalkneethling",
+        },
+      },
+    };
+
+    const response = await alloAllo();
+
+    await expect(response).toBe(undefined);
+  });
 });
