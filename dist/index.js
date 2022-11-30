@@ -33,6 +33,14 @@ async function alloAllo() {
   const currentActionId = payload.number || payload.issue?.number;
   const isPullRequest = payload.pull_request ? true : false;
 
+  // do not comment on pull requests opened by bots
+  if (
+    isPullRequest &&
+    payload.pull_request?.user.type.toLowerCase() === "bot"
+  ) {
+    return;
+  }
+
   // Get all issues for the current user.
   // Issues include both issues and pull requests
   const { status, data: issues } = await octokit.rest.issues.listForRepo({
