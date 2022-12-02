@@ -57,16 +57,16 @@ async function alloAllo() {
   const issueList = issues.filter((issue) => !issue.pull_request);
   const pullRequestList = issues.filter((issue) => issue.pull_request);
 
+  console.log("currentActionId", currentActionId);
+  console.log("pullRequestList", pullRequestList);
+  console.log("issueList", issueList);
+
   // if the user has more than one issue and pull request, take no action
   if (issueList.length > 1 && pullRequestList.length > 1) {
     return;
   }
 
   let response = null;
-
-  console.log("currentActionId", currentActionId);
-  console.log("pullRequestList", pullRequestList);
-  console.log("issueList", issueList);
 
   // if this is a pull request, and the pull request list contains one entry
   // check whether the currentActionId is the same as the pull request id
