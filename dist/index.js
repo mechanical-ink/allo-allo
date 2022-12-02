@@ -14,6 +14,7 @@ async function alloAllo() {
   const prComment = core.getInput("prWelcome");
 
   const payload = github.context.payload;
+  console.log(payload);
 
   // if the action was not one of 'opened', take no action
   if (payload.action !== "opened") {
