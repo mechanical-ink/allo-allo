@@ -11,8 +11,22 @@ When a contributor opens their first issue or pull request, Allo Allo will leave
 ### Default configuration
 
 ```yaml
-name: allo-allo
-on: [pull_request_target]
+name: "AlloAllo"
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   allo-allo:
@@ -36,8 +50,16 @@ jobs:
 ### Comment on new issues only
 
 ```yaml
-name: allo-allo
-on: [pull_request_target]
+name: "AlloAllo"
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   allo-allo:
@@ -55,8 +77,18 @@ jobs:
 ### Comment on new pull requests only
 
 ```yaml
-name: allo-allo
-on: [pull_request_target]
+name: "AlloAllo"
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   allo-allo:
