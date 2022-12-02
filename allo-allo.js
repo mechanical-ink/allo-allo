@@ -8,13 +8,6 @@ async function alloAllo() {
   const prComment = core.getInput("prWelcome");
 
   const payload = github.context.payload;
-  console.log(
-    octokit.rest.users.getContextForUser({
-      username: "schalkneethling",
-      subject_type: "repository",
-      subject_id: 489482036,
-    })
-  );
 
   // if the action was not one of 'opened', take no action
   if (payload.action !== "opened") {
@@ -42,10 +35,11 @@ async function alloAllo() {
     return;
   }
 
-  // Get all issues for the current user.
+  // Get all open and closed issues for the current user.
   // Issues include both issues and pull requests
   const { status, data: issues } = await octokit.rest.issues.listForRepo({
     owner: payload.repository.owner.login,
+    state: "all",
     repo: payload.repository.name,
     creator: creator,
   });
