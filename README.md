@@ -110,3 +110,5 @@ If you have any questions, please reach out to us on [GitHub](https://github.com
 ## License
 
 This project is licensed under the [LICENSE](LICENSE.md).
+
+[//]: # (This may be the most platform independent comment)
