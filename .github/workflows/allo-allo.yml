@@ -9,6 +9,7 @@ on:
       - main
     types:
       - opened
+      - closed
 
 permissions:
   contents: read
