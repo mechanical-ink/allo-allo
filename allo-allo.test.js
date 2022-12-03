@@ -18,7 +18,7 @@ const alloAllo = require("./allo-allo");
  * TODO: create mockListForRepo function that returns a list of issues
  */
 
-function mockListForRepos() {
+function mockOctokit() {
   jest.spyOn(github, "getOctokit").mockImplementation(() => {
     return {
       rest: {
@@ -39,6 +39,19 @@ function mockListForRepos() {
                 id: 1460402393,
                 pull_request: [null],
                 body: "Updates the action yml",
+              },
+            ],
+          }),
+        },
+        pulls: {
+          list: jest.fn().mockReturnValue({
+            status: 200,
+            data: [
+              {
+                merged_at: "2021-03-01T00:00:00Z",
+                user: {
+                  login: "mitester",
+                },
               },
             ],
           }),
@@ -70,9 +83,9 @@ describe("Allo Allo GitHub Action", () => {
     github.context.payload = {};
   });
 
-  test("if the action is not one of opened, the action should do nothing", async () => {
+  test("if the action is not one of opened or closed, the action should do nothing", async () => {
     github.context.payload = {
-      action: "closed",
+      action: "reopened",
     };
 
     const response = await alloAllo();
@@ -137,6 +150,31 @@ describe("Allo Allo GitHub Action", () => {
         },
       },
     };
+
+    const response = await alloAllo();
+
+    await expect(response).toBe(undefined);
+  });
+
+  test("if this is the users first merged pull request, it should add a comment", async () => {
+    github.context.payload = {
+      action: "closed",
+      number: 118,
+      pull_request: {
+        body: "Bump prettier from 2.7.1 to 2.8.0",
+        merged: true,
+        user: {
+          login: "mitester",
+        },
+      },
+      repository: {
+        owner: {
+          login: "schalkneethling",
+        },
+      },
+    };
+
+    mockOctokit();
 
     const response = await alloAllo();
 

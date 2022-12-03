@@ -35,4 +35,7 @@ jobs:
             One of the project maintainers will triage and assign the pull request for review
             as soon as possible. We appreciate your patience. To ensure the health of the project,
             please take a moment to read our [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
+          preMerged: |
+            Thank you for your contribution! Your pull request has been merged.
+            This will be included in the next release. 🎉
           token: ${{ secrets.GITHUB_TOKEN }}
