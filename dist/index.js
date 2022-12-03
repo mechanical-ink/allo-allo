@@ -14,7 +14,6 @@ async function alloAllo() {
   const prComment = core.getInput("prWelcome");
 
   const payload = github.context.payload;
-  console.log("payload", payload);
 
   // if the action was not one of 'opened', take no action
   if (payload.action !== "opened") {
@@ -24,6 +23,15 @@ async function alloAllo() {
   const repositoryOwner = payload.repository.owner.login;
   // The username of the user that created the issue or pull request
   const creator = payload.pull_request?.user.login || payload.issue?.user.login;
+
+  console.log(
+    await octokit.rest.issues.listForRepo({
+      owner: payload.repository.owner.login,
+      state: "all",
+      repo: payload.repository.name,
+      creator: creator,
+    })
+  );
 
   // no need to welcome the repository owner
   if (creator === repositoryOwner) {
