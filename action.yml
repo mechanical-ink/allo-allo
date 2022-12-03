@@ -10,6 +10,9 @@ inputs:
     description: "The greeting to display to the new contributor on pull requests."
     required: false
     default: "Welcome to the project! Thank you for your contribution!"
+  prMerged: # id of input
+    description: "The greeting to display to the contributor on pull requests that have been merged."
+    required: false
   token:
     description: "Token for the repository. The default GITHUB_TOKEN can be used."
     required: true

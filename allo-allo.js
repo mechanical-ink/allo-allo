@@ -25,7 +25,8 @@ async function alloAllo() {
     });
 
     const allClosedPullRequestsByCreator = allClosedPullRequests.data.filter(
-      (pullRequest) => pullRequest.user.login === creator
+      (pullRequest) =>
+        pullRequest.user.login === creator && pullRequest.merged_at
     );
 
     if (allClosedPullRequestsByCreator.length === 1) {
