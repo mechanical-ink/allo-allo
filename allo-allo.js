@@ -23,10 +23,9 @@ async function alloAllo() {
       (pullRequest) => pullRequest.user.login === creator
     );
 
-    console.log(
-      "allClosedPullRequestsByCreator",
-      allClosedPullRequestsByCreator
-    );
+    if (allClosedPullRequestsByCreator.length === 1) {
+      console.log("adding first pr comment");
+    }
   }
 
   // if the action was not one of 'opened', take no action
