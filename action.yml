@@ -5,11 +5,9 @@ inputs:
   issueWelcome: # id of input
     description: "The greeting to display to the new contributor on issues."
     required: false
-    default: "Welcome to the project! Thank you for your interest!"
   prWelcome: # id of input
     description: "The greeting to display to the new contributor on pull requests."
     required: false
-    default: "Welcome to the project! Thank you for your contribution!"
   prMerged: # id of input
     description: "The greeting to display to the contributor on pull requests that have been merged."
     required: false

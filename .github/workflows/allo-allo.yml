@@ -36,5 +36,6 @@ jobs:
             as soon as possible. We appreciate your patience. To ensure the health of the project,
             please take a moment to read our [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
           prMerged: |
-            Thank you for your contribution! 🎉 Welcome to the project!
+            Thank you for your contribution! Your pull request has been merged.
+            This will be included in the next release. 🎉
           token: ${{ secrets.GITHUB_TOKEN }}
