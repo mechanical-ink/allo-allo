@@ -21,6 +21,8 @@ async function alloAllo() {
   const currentActionId = payload.number || payload.issue?.number;
   const isPullRequest = payload.pull_request ? true : false;
 
+  let response = null;
+
   if (payload.action === "closed" && payload.pull_request?.merged) {
     const allClosedPullRequests = await octokit.rest.pulls.list({
       owner: payload.repository.owner.login,
@@ -47,6 +49,8 @@ async function alloAllo() {
           `Error while creating first merged pull request comment: ${error.message}`
         );
       }
+
+      return response;
     }
   }
 
@@ -92,8 +96,6 @@ async function alloAllo() {
   if (issueList.length > 1 && pullRequestList.length > 1) {
     return;
   }
-
-  let response = null;
 
   // if this is a pull request, and the pull request list contains one entry
   // check whether the currentActionId is the same as the pull request id
