@@ -103,10 +103,10 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Communication
+### Communication
 
 If you have any questions, please reach out to us on [GitHub](https://github.com/mechanical-ink/community) or via [Discord](https://discord.gg/Ty3RytTxCR)
 
-## License
+### License
 
 This project is licensed under the [LICENSE](LICENSE.md).
