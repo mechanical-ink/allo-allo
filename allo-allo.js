@@ -6,12 +6,13 @@ async function alloAllo() {
   const octokit = new github.getOctokit(token);
   const issueComment = core.getInput("issueWelcome");
   const prComment = core.getInput("prWelcome");
+  const prMerged = core.getInput("prMerged");
 
   const payload = github.context.payload;
   console.log("payload", payload);
 
-  // if the action was not one of 'opened', take no action
-  if (payload.action !== "opened") {
+  // if the action was not one of 'opened' or 'closed', take no action
+  if (payload.action !== "opened" && payload.action !== "closed") {
     return;
   }
 
@@ -36,6 +37,8 @@ async function alloAllo() {
     return;
   }
 
+  // TODO: Create a PR that will log out the result of listForRepo without destructuring.
+
   // Get all open and closed issues for the current user.
   // Issues include both issues and pull requests
   const { status, data: issues } = await octokit.rest.issues.listForRepo({
@@ -51,10 +54,28 @@ async function alloAllo() {
 
   const issueList = issues.filter((issue) => !issue.pull_request);
   const pullRequestList = issues.filter((issue) => issue.pull_request);
+  const mergedPullRequestList = pullRequestList.filter(
+    (pullRequest) => pullRequest.pull_request.merged_at
+  );
 
   console.log("currentActionId", currentActionId);
   console.log("pullRequestList", pullRequestList);
   console.log("issueList", issueList);
+
+  if (
+    isPullRequest &&
+    payload.action === "closed" &&
+    payload.pull_request?.merged &&
+    mergedPullRequestList.length === 1 &&
+    prMerged
+  ) {
+    await octokit.rest.issues.createComment({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      issue_number: currentActionId,
+      body: prMerged,
+    });
+  }
 
   // if the user has more than one issue and pull request, take no action
   if (issueList.length > 1 && pullRequestList.length > 1) {

@@ -2,6 +2,22 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const alloAllo = require("./allo-allo");
 
+/*
+ * TODO: Create mockGetOctoKit that returns a mock octokit object
+ * This should return a mock octokit object that looks like this:
+ * {
+ *   rest: {
+ *    issues: {
+ *      listForRepo: jest.fn() // this should use the mock mockListForRepo
+ *    }
+ *   }
+ * }
+ */
+
+/*
+ * TODO: create mockListForRepo function that returns a list of issues
+ */
+
 function mockGetInput(mocks) {
   /*
    * The `??` string is a nullish coalescing operator.
