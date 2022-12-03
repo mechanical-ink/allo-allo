@@ -11,6 +11,9 @@ async function alloAllo() {
   const repositoryOwner = payload.repository.owner.login;
   // The username of the user that created the issue or pull request
   const creator = payload.pull_request?.user.login || payload.issue?.user.login;
+  // The id of the current issue or pull request
+  const currentActionId = payload.number || payload.issue?.number;
+  const isPullRequest = payload.pull_request ? true : false;
 
   if (payload.action === "closed" && payload.pull_request?.merged) {
     const allClosedPullRequests = await octokit.rest.pulls.list({
@@ -25,6 +28,19 @@ async function alloAllo() {
 
     if (allClosedPullRequestsByCreator.length === 1) {
       console.log("adding first pr comment");
+      try {
+        response = await octokit.rest.issues.createComment({
+          owner: payload.repository.owner.login,
+          repo: payload.repository.name,
+          issue_number: currentActionId,
+          body: prComment,
+        });
+      } catch (error) {
+        console.error(error);
+        core.setFailed(
+          `Error while creating first merged pull request comment: ${error.message}`
+        );
+      }
     }
   }
 
@@ -37,10 +53,6 @@ async function alloAllo() {
   if (creator === repositoryOwner) {
     return;
   }
-
-  // The id of the current issue or pull request
-  const currentActionId = payload.number || payload.issue?.number;
-  const isPullRequest = payload.pull_request ? true : false;
 
   // do not comment on pull requests opened by bots
   if (
