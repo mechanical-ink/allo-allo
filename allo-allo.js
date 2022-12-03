@@ -24,13 +24,12 @@ async function alloAllo() {
       state: "closed",
     });
 
-    const allClosedPullRequestsByCreator = allClosedPullRequests.data.filter(
+    const allMergedPullRequestsByCreator = allClosedPullRequests.data.filter(
       (pullRequest) =>
         pullRequest.user.login === creator && pullRequest.merged_at
     );
 
-    if (allClosedPullRequestsByCreator.length === 1) {
-      console.log("adding first pr comment");
+    if (allMergedPullRequestsByCreator.length === 1) {
       try {
         response = await octokit.rest.issues.createComment({
           owner: payload.repository.owner.login,
