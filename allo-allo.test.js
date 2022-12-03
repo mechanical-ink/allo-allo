@@ -42,6 +42,10 @@ function mockOctokit() {
               },
             ],
           }),
+          createComment: jest.fn().mockReturnValue({
+            status: 201,
+            body: "Thank you for your contribution! Your pull request has been merged.\\nThis will be included in the next release. 🎉",
+          }),
         },
         pulls: {
           list: jest.fn().mockReturnValue({
@@ -157,6 +161,11 @@ describe("Allo Allo GitHub Action", () => {
   });
 
   test("if this is the users first merged pull request, it should add a comment", async () => {
+    const expected = {
+      status: 201,
+      body: "Thank you for your contribution! Your pull request has been merged.\\nThis will be included in the next release. 🎉",
+    };
+
     github.context.payload = {
       action: "closed",
       number: 118,
@@ -178,6 +187,6 @@ describe("Allo Allo GitHub Action", () => {
 
     const response = await alloAllo();
 
-    await expect(response).toBe(null);
+    await expect(response).toStrictEqual(expected);
   });
 });

@@ -55,7 +55,6 @@ async function alloAllo() {
         );
       }
 
-      console.log(response);
       return response;
     }
   }
