@@ -9,7 +9,15 @@ async function alloAllo() {
   const prMerged = core.getInput("prMerged");
 
   const payload = github.context.payload;
-  console.log("payload", payload);
+
+  if (payload.action === "closed" && payload.pull_request?.merged) {
+    const allClosedPullRequests = await octokit.rest.pulls.list({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      state: "closed",
+    });
+    console.log(allClosedPullRequests);
+  }
 
   // if the action was not one of 'opened' or 'closed', take no action
   if (payload.action !== "opened" && payload.action !== "closed") {
@@ -36,8 +44,6 @@ async function alloAllo() {
   ) {
     return;
   }
-
-  // TODO: Create a PR that will log out the result of listForRepo without destructuring.
 
   // Get all open and closed issues for the current user.
   // Issues include both issues and pull requests

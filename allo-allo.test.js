@@ -18,6 +18,36 @@ const alloAllo = require("./allo-allo");
  * TODO: create mockListForRepo function that returns a list of issues
  */
 
+function mockListForRepos() {
+  jest.spyOn(github, "getOctokit").mockImplementation(() => {
+    return {
+      rest: {
+        issues: {
+          listForRepo: jest.fn().mockReturnValue({
+            status: 200,
+            data: [
+              {
+                id: 1465569407,
+                body: "Currently, this action uses commonjs but one can safely switch to ESM.",
+              },
+              {
+                id: 1460402392,
+                pull_request: [null],
+                body: "Updates the `README`",
+              },
+              {
+                id: 1460402393,
+                pull_request: [null],
+                body: "Updates the action yml",
+              },
+            ],
+          }),
+        },
+      },
+    };
+  });
+}
+
 function mockGetInput(mocks) {
   /*
    * The `??` string is a nullish coalescing operator.
