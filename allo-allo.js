@@ -19,9 +19,14 @@ async function alloAllo() {
       state: "closed",
     });
 
-    allClosedPullRequests.data.forEach((pullRequest) => {
-      console.log("allClosedPullRequests - users", pullRequest.user);
-    });
+    const allClosedPullRequestsByCreator = allClosedPullRequests.data.filter(
+      (pullRequest) => pullRequest.user.login === creator
+    );
+
+    console.log(
+      "allClosedPullRequestsByCreator",
+      allClosedPullRequestsByCreator
+    );
   }
 
   // if the action was not one of 'opened', take no action
