@@ -9,6 +9,15 @@ async function alloAllo() {
 
   const payload = github.context.payload;
 
+  if (payload.action === "closed" && payload.pull_request?.merged) {
+    const allClosedPullRequests = await octokit.rest.pulls.list({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      state: "closed",
+    });
+    console.log("allClosedPullRequests", allClosedPullRequests);
+  }
+
   // if the action was not one of 'opened', take no action
   if (payload.action !== "opened") {
     return;
