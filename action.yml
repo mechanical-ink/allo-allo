@@ -1,6 +1,9 @@
-name: "Allo Allo"
-author: "Schalk Neethling"
-description: "A welcome bot GitHub action for your project"
+name: "Allo-Allo"
+author: "Mechanical Ink - Schalk Neethling"
+branding:
+  icon: 'award'
+  color: 'green'
+description: "A welcome bot GitHub action for your projects"
 inputs:
   issueWelcome: # id of input
     description: "The greeting to display to the new contributor on issues."
