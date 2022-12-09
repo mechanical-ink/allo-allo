@@ -103,6 +103,41 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Comment on first merged pull requests
+
+This will comment on the first opened pull request and when the contributors first pull request is merged.
+
+```yaml
+name: "AlloAllo"
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+      - closed
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  allo-allo:
+    uses: mechanical-ink/allo-allo@v1
+    with:
+      with:
+        prWelcome: |
+          It looks like this is your first pull request. 🎉 Thank you for your contribution!
+          One of the project maintainers will triage and assign the pull request for review.
+          We appreciate your patience. To safeguard the health of the project, please take a
+          moment to read our [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
+        prMerged: |
+          Thank you for your contribution! Your pull request has been merged.
+          This will be included in the next release. 🎉
+        token: ${{ secrets.GITHUB_TOKEN }}
+```
+
 ## Communication
 
 If you have any questions, please reach out to us on [GitHub](https://github.com/mechanical-ink/community) or via [Discord](https://discord.gg/Ty3RytTxCR)
@@ -110,5 +145,3 @@ If you have any questions, please reach out to us on [GitHub](https://github.com
 ## License
 
 This project is licensed under the [LICENSE](LICENSE.md).
-
-[//]: # "This may be the most platform independent comment"
